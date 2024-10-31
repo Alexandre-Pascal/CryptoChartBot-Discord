@@ -14,6 +14,11 @@ app.listen(port, () => {
     console.log(`Serveur en écoute sur le port ${port}`);
 });
 
+// Ajoutez une route pour le ping
+app.get('/', (req, res) => {
+    res.send('Le serveur fonctionne !');
+});
+
 // Créez une instance de client Discord
 const client = new Client({
     intents: [
