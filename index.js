@@ -207,8 +207,13 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
     const { commandName, options } = interaction;
 
-    //Affiche la commande et la personne qui l'a exécutée
+    // Affiche la commande et les options si elles existent, ainsi que l'utilisateur qui a exécuté la commande
     console.log(`Commande reçue: ${interaction.commandName} par ${interaction.user.tag}`);
+    if (options.size > 0) {
+        options.data.forEach(option => {
+            console.log(`Option: ${option.name}, Valeur: ${option.value}`);
+        });
+    }
 
     if (commandName === 'graph') {
         const symbol = options.getString('crypto');
