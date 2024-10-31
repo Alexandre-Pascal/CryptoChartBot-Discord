@@ -78,7 +78,7 @@ async function registerSlashCommands() {
 
     try {
         console.log('Début d\'enregistrement des commandes slash...');
-        await rest.put(Routes.applicationGuildCommands(client.user.id, SERVER_ID), { body: commands });
+        await rest.put(Routes.applicationCommands(client.user.id), { body: commands });
         console.log('Commandes slash enregistrées avec succès !');
     } catch (error) {
         console.error(error);
