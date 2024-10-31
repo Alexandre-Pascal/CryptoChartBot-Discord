@@ -29,7 +29,7 @@ Tout le monde peut ajouter ce bot à son serveur Discord en utilisant le lien su
 
 ## Utilisation
 
-Une fois le bot en ligne, vous pouvez interagir avec lui en utilisant les commandes suivantes :
+Une fois le bot en ligne, vous pouvez interagir avec lui en utilisant les commandes suivantes dans un salon de votre serveur discord :
 
 - /graph : Générez un graphique pour une crypto-monnaie avec des paramètres personnalisés.
   - **Options** :
