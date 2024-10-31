@@ -59,7 +59,7 @@ Vous pouvez héberger ce bot sur des services comme Heroku, Render, ou toute mac
 
 Les contributions sont les bienvenues ! Pour proposer une amélioration ou signaler un problème, ouvrez une issue ou un pull request.
 
-# Déployer le Crypto Chart Bot en Local
+# Héberger et déployer le Bot en Local
 
 Ce guide explique comment configurer et déployer votre bot localement avec Node.js et le [Discord Developer Portal](https://discord.com/developers/applications).
 
