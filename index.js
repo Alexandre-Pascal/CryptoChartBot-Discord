@@ -194,6 +194,10 @@ async function handleGraphCommand(symbol, interval, limit, interaction) {
 
         // Optionnel : Supprimer le fichier après l'envoi
         fs.unlinkSync(chartPath);
+
+        //Affiche la commande et la personne qui l'a exécutée
+        console.log(`Commande reçue: ${commandName} par ${interaction.user.tag}`);
+
     } catch (error) {
         console.error('Erreur lors de la récupération des données :', error);
         await interaction.editReply('Désolé, je n\'ai pas pu récupérer les données. Vérifiez que la crypto existe et que l\'intervalle est correct.');
