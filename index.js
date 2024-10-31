@@ -32,10 +32,6 @@ const client = new Client({
     ],
 });
 
-// Événement prêt
-client.once(Events.ClientReady, () => {
-    console.log(`Connecté en tant que ${client.user.tag}`);
-});
 
 // Enregistrement de la slash command
 async function registerSlashCommands() {
@@ -165,7 +161,10 @@ async function generateChart(prices) {
 client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isCommand()) return;
 
-    const { commandName, options } = interaction;
+    const { commandName, user, options } = interaction;
+
+    // Ajoutez le console.log ici pour afficher la commande utilisée et par qui
+    console.log(`${user.tag} a utilisé la commande: ${commandName}`);
 
     if (commandName === 'graph') {
         const symbol = options.getString('crypto');
