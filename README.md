@@ -76,30 +76,40 @@ Ce guide explique comment configurer et déployer votre bot localement avec Node
 ### Étape 2 : Ajouter le Bot à l'Application
 
 1. Dans le menu de gauche, cliquez sur **Bot**.
-2. Sélectionnez **Add Bot** puis confirmez en cliquant sur **Yes, do it!**.
-3. Vous verrez la section avec le token de votre bot :
-   - Cliquez sur **Reset Token** si nécessaire et sur **Copy** pour copier le token.
+3. Vous verrez la section token :
+   - Cliquez sur **Reset Token**, et sur **Copy** pour copier le token.
    - **Gardez ce token secret** ; il sera utilisé dans votre fichier `.env`.
 
 ### Étape 3 : Configurer les Permissions du Bot
 
-1. Allez dans **OAuth2** > **URL Generator**.
-2. Dans **OAuth2 Scopes**, cochez **bot**.
-3. Sous **Bot Permissions**, cochez les permissions requises :
+1. Allez dans **OAuth2** > **OAuth2 URL Generator**.
+2. Activez **Message Content Intent**, sauvegardez les modifications.
+3. Dans la section **Scopes**, cochez **bot**.
+4. Sous **Bot Permissions**, cochez les permissions requises :
    - **Send Messages** : permet au bot d'envoyer des messages.
    - **Read Message History** : pour lire l’historique des messages.
    - **Attach Files** : pour envoyer des fichiers (comme les graphiques).
-4. Copiez l'URL générée pour ajouter le bot à votre serveur.
+5. Copiez l'URL générée pour ajouter le bot à votre serveur.
 
 ### Étape 4 : Ajouter le Bot à Votre Serveur Discord
 
 1. Ouvrez l'URL générée dans une nouvelle fenêtre.
 2. Sélectionnez le serveur où vous voulez ajouter le bot.
-3. Cliquez sur **Authorize** et complétez la vérification si demandé.
+3. Cliquez sur  **Continuer** > **Authoriser**.
 
-### Étape 5 : Créer le Fichier `.env`
 
-1. Dans votre projet local, créez un fichier `.env`.
+
+## 2. Installation et Déploiement du Bot en Local
+
+### Étape 1 : Cloner le Dépôt et Installer les Dépendances
+
+```bash
+git clone https://github.com/Alexandre-Pascal/bot-discord-graph-crypto.git
+npm install
+```
+### Étape 2 : Créer le Fichier `.env`
+
+1. Dans le répertoire du projet, créez un fichier `.env`.
 2. Ajoutez-y le contenu suivant :
 
     ```env
@@ -110,26 +120,16 @@ Ce guide explique comment configurer et déployer votre bot localement avec Node
 
 ---
 
-## 2. Installation et Déploiement du Bot en Local
-
-### Étape 1 : Cloner le Dépôt et Installer les Dépendances
-
-```bash
-git clone <url-du-repository>
-cd <nom-du-repository>
-npm install
-```
-
-### Étape 2 : Lancer le Bot
+### Étape 3 : Lancer le Bot
    ```bash
    node index.js
    ```
 Le bot devrait maintenant être en ligne et répondre aux commandes sur le serveur.
 
-## Étape 3 : Tester les Commandes du Bot
+## Étape 4 : Tester les Commandes du Bot
 
 Une fois le bot démarré en local, testez ses commandes directement dans un salon de votre serveur Discord.
-Exemple : **Commande `/graph_btc`** : Génère un graphique des prix de Bitcoin sur une période d’un an.
+Exemple : **Commande `/graph_btc`** : Génère un graphique des prix de Bitcoin sur une période d’un an et affiche son prix actuel.
 
 ## Fin de l'Installation
 
