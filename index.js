@@ -207,18 +207,17 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
     const { commandName, options } = interaction;
 
-    // Affiche la commande et les options si elles existent, ainsi que l'utilisateur qui a exécuté la commande
+    // Affiche la commande ainsi que l'utilisateur qui a exécuté la commande
     console.log(`Commande reçue: ${interaction.commandName} par ${interaction.user.tag}`);
-    if (options) {
-        console.log('Crypto:', options.getString('crypto'));
-        console.log('Intervalle:', options.getString('interval'));
-        console.log('Limite:', options.getInteger('limit'));
-    }
 
     if (commandName === 'graph') {
         const symbol = options.getString('crypto');
         const interval = options.getString('interval');
         const limit = options.getInteger('limit');
+
+        // Affiche les options dans la console
+        console.log(`Crypto: ${symbol}, Intervalle: ${interval}, Limite: ${limit}`);
+
         await handleGraphCommand(symbol, interval, limit, interaction);
     } else if (commandName === 'graph_btc') {
         await handleGraphCommand('BTCUSDT', '1d', 365, interaction); // 1 an
