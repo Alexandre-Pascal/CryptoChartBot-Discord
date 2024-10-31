@@ -163,6 +163,8 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
     const { commandName, options } = interaction;
 
+    await interaction.deferReply(); // Indique que vous traitez la commande
+
     if (commandName === 'graph') {
         const symbol = options.getString('crypto');
         const interval = options.getString('interval');
