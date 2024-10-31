@@ -209,10 +209,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
     // Affiche la commande et les options si elles existent, ainsi que l'utilisateur qui a exécuté la commande
     console.log(`Commande reçue: ${interaction.commandName} par ${interaction.user.tag}`);
-    if (options.size > 0) {
-        options.data.forEach(option => {
-            console.log(`Option: ${option.name}, Valeur: ${option.value}`);
-        });
+    if (options) {
+        console.log('Crypto:', options.getString('crypto'));
+        console.log('Intervalle:', options.getString('interval'));
+        console.log('Limite:', options.getInteger('limit'));
     }
 
     if (commandName === 'graph') {
