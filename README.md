@@ -58,7 +58,6 @@ Une fois le bot en ligne, vous pouvez interagir avec lui en utilisant les comman
 ## Dépendances
 
 - [discord.js](https://discord.js.org/) - Pour la gestion des interactions Discord
-- [dotenv](https://www.npmjs.com/package/dotenv) - Pour la gestion des variables d'environnement
 - [axios](https://www.npmjs.com/package/axios) - Pour les requêtes HTTP vers l'API Binance
 - [canvas](https://www.npmjs.com/package/canvas) - Pour la création des graphiques
 
