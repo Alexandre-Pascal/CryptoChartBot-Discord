@@ -3,9 +3,19 @@ require('dotenv').config();
 const axios = require('axios');
 const { Client, GatewayIntentBits, Partials, Events, AttachmentBuilder, REST, Routes } = require('discord.js');
 const { createCanvas } = require('canvas');
+const express = require('express'); // o u le framework que vous utilisez
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const SERVER_ID = process.env.SERVER_ID;
+
+const app = express();
+const port = process.env.PORT || 3000; // Utilise la variable d'environnement PORT ou le port 3000 par défaut
+
+
+app.listen(port, () => {
+    console.log(`Serveur en écoute sur le port ${port}`);
+});
+
 
 // Créez une instance de client Discord
 const client = new Client({
