@@ -153,145 +153,66 @@ async function generateChart(prices) {
     return filePath;
 }
 
+// Fonction pour gérer la génération de graphiques
+async function handleGraphCommand(symbol, interval, limit, interaction) {
+    try {
+        // Récupérez les données de Binance
+        const response = await axios.get('https://api.binance.com/api/v3/klines', {
+            params: {
+                symbol: symbol,
+                interval: interval,
+                limit: limit // Limite des données
+            }
+        });
+
+        // Extraire les données de prix
+        const prices = response.data.map(entry => {
+            return {
+                time: new Date(entry[0]),
+                open: parseFloat(entry[1]),
+                high: parseFloat(entry[2]),
+                low: parseFloat(entry[3]),
+                close: parseFloat(entry[4]),
+                volume: parseFloat(entry[5])
+            };
+        });
+
+        // Générer le graphique
+        const chartPath = await generateChart(prices);
+
+        // Envoyer le fichier dans Discord
+        const attachment = new AttachmentBuilder(chartPath);
+        await interaction.reply({ content: 'Voici le graphique des prix :', files: [attachment] });
+
+        // Donne le prix actuel de la crypto
+        const currentPrice = prices[prices.length - 1].close;
+        await interaction.followUp(`Le prix actuel de ${symbol} est de ${currentPrice} USD.`);
+
+        // Optionnel : Supprimer le fichier après l'envoi
+        fs.unlinkSync(chartPath);
+    } catch (error) {
+        console.error('Erreur lors de la récupération des données :', error);
+        await interaction.reply('Désolé, je n\'ai pas pu récupérer les données. Vérifiez que la crypto existe et que l\'intervalle est correct.');
+    }
+}
+
 // Gestion des interactions de commandes
 client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isCommand()) return;
 
     const { commandName, options } = interaction;
 
-    // Répondre à l'interaction
-    await interaction.deferReply(); // Répondre immédiatement pour éviter le délai
-
-    try {
-        if (commandName === 'graph') {
-            const symbol = options.getString('crypto');
-            const interval = options.getString('interval');
-            const limit = options.getInteger('limit');
-
-            // Récupérez les données de Binance
-            const response = await axios.get('https://api.binance.com/api/v3/klines', {
-                params: {
-                    symbol: symbol,
-                    interval: interval,
-                    limit: limit // Limite des données
-                }
-            });
-
-            const prices = response.data.map(entry => ({
-                time: new Date(entry[0]),
-                open: parseFloat(entry[1]),
-                high: parseFloat(entry[2]),
-                low: parseFloat(entry[3]),
-                close: parseFloat(entry[4]),
-                volume: parseFloat(entry[5])
-            }));
-
-            // Générer le graphique
-            const chartPath = await generateChart(prices);
-            const attachment = new AttachmentBuilder(chartPath);
-            await interaction.editReply({ content: 'Voici le graphique des prix :', files: [attachment] });
-
-            const currentPrice = prices[prices.length - 1].close;
-            await interaction.followUp(`Le prix actuel de ${symbol} est de ${currentPrice} USD.`);
-
-            fs.unlinkSync(chartPath);
-        } else if (commandName === 'graph_btc') {
-            // Gestion pour Bitcoin
-            const symbol = 'BTCUSDT';
-            const interval = '1d';
-            const limit = 365;
-
-            const response = await axios.get('https://api.binance.com/api/v3/klines', {
-                params: {
-                    symbol: symbol,
-                    interval: interval,
-                    limit: limit
-                }
-            });
-
-            const prices = response.data.map(entry => ({
-                time: new Date(entry[0]),
-                open: parseFloat(entry[1]),
-                high: parseFloat(entry[2]),
-                low: parseFloat(entry[3]),
-                close: parseFloat(entry[4]),
-                volume: parseFloat(entry[5])
-            }));
-
-            const chartPath = await generateChart(prices);
-            const attachment = new AttachmentBuilder(chartPath);
-            await interaction.editReply({ content: 'Voici le graphique des prix de Bitcoin :', files: [attachment] });
-
-            const currentPrice = prices[prices.length - 1].close;
-            await interaction.followUp(`Le prix actuel de ${symbol} est de ${currentPrice} USD.`);
-
-            fs.unlinkSync(chartPath);
-        } else if (commandName === 'graph_eth') {
-            // Gestion pour Ethereum
-            const symbol = 'ETHUSDT';
-            const interval = '1d';
-            const limit = 365;
-
-            const response = await axios.get('https://api.binance.com/api/v3/klines', {
-                params: {
-                    symbol: symbol,
-                    interval: interval,
-                    limit: limit
-                }
-            });
-
-            const prices = response.data.map(entry => ({
-                time: new Date(entry[0]),
-                open: parseFloat(entry[1]),
-                high: parseFloat(entry[2]),
-                low: parseFloat(entry[3]),
-                close: parseFloat(entry[4]),
-                volume: parseFloat(entry[5])
-            }));
-
-            const chartPath = await generateChart(prices);
-            const attachment = new AttachmentBuilder(chartPath);
-            await interaction.editReply({ content: 'Voici le graphique des prix d\'Ethereum :', files: [attachment] });
-
-            const currentPrice = prices[prices.length - 1].close;
-            await interaction.followUp(`Le prix actuel de ${symbol} est de ${currentPrice} USD.`);
-
-            fs.unlinkSync(chartPath);
-        } else if (commandName === 'graph_sol') {
-            // Gestion pour Solana
-            const symbol = 'SOLUSDT';
-            const interval = '1d';
-            const limit = 365;
-
-            const response = await axios.get('https://api.binance.com/api/v3/klines', {
-                params: {
-                    symbol: symbol,
-                    interval: interval,
-                    limit: limit
-                }
-            });
-
-            const prices = response.data.map(entry => ({
-                time: new Date(entry[0]),
-                open: parseFloat(entry[1]),
-                high: parseFloat(entry[2]),
-                low: parseFloat(entry[3]),
-                close: parseFloat(entry[4]),
-                volume: parseFloat(entry[5])
-            }));
-
-            const chartPath = await generateChart(prices);
-            const attachment = new AttachmentBuilder(chartPath);
-            await interaction.editReply({ content: 'Voici le graphique des prix de Solana :', files: [attachment] });
-
-            const currentPrice = prices[prices.length - 1].close;
-            await interaction.followUp(`Le prix actuel de ${symbol} est de ${currentPrice} USD.`);
-
-            fs.unlinkSync(chartPath);
-        }
-    } catch (error) {
-        console.error('Erreur lors de la récupération des données :', error);
-        await interaction.editReply('Désolé, une erreur s\'est produite lors de la récupération des données.');
+    if (commandName === 'graph') {
+        const symbol = options.getString('crypto');
+        const interval = options.getString('interval');
+        const limit = options.getInteger('limit');
+        await handleGraphCommand(symbol, interval, limit, interaction);
+    } else if (commandName === 'graph_btc') {
+        await handleGraphCommand('BTCUSDT', '1d', 365, interaction); // 1 an
+    } else if (commandName === 'graph_eth') {
+        await handleGraphCommand('ETHUSDT', '1d', 365, interaction); // 1 an
+    } else if (commandName === 'graph_sol') {
+        await handleGraphCommand('SOLUSDT', '1d', 365, interaction); // 1 an
     }
 });
 
