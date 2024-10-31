@@ -222,3 +222,15 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 // Connectez le bot avec votre token
 client.login(BOT_TOKEN);
+
+// Ping le serveur toutes les 5 minutes pour éviter la mise en veille
+const url = 'https://bot-discord-graph-crypto.onrender.com';
+const pingServer = async () => {
+    try {
+        await axios.get(url);
+        console.log('Ping réussi à ' + url);
+    } catch (error) {
+        console.error('Erreur lors du ping:', error.message);
+    }
+};
+setInterval(pingServer, 10 * 60 * 1000);
