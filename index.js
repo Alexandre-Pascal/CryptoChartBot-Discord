@@ -155,6 +155,10 @@ async function generateChart(prices) {
 
 // Fonction pour gérer la génération de graphiques
 async function handleGraphCommand(symbol, interval, limit, interaction) {
+
+    // Indique à Discord que nous avons reçu l'interaction et que nous allons répondre
+    await interaction.deferReply();
+
     try {
         // Récupérez les données de Binance
         const response = await axios.get('https://api.binance.com/api/v3/klines', {
@@ -182,7 +186,7 @@ async function handleGraphCommand(symbol, interval, limit, interaction) {
 
         // Envoyer le fichier dans Discord
         const attachment = new AttachmentBuilder(chartPath);
-        await interaction.reply({ content: 'Voici le graphique des prix :', files: [attachment] });
+        await interaction.editReply({ content: 'Voici le graphique des prix :', files: [attachment] });
 
         // Donne le prix actuel de la crypto
         const currentPrice = prices[prices.length - 1].close;
@@ -192,7 +196,7 @@ async function handleGraphCommand(symbol, interval, limit, interaction) {
         fs.unlinkSync(chartPath);
     } catch (error) {
         console.error('Erreur lors de la récupération des données :', error);
-        await interaction.reply('Désolé, je n\'ai pas pu récupérer les données. Vérifiez que la crypto existe et que l\'intervalle est correct.');
+        await interaction.editReply('Désolé, je n\'ai pas pu récupérer les données. Vérifiez que la crypto existe et que l\'intervalle est correct.');
     }
 }
 
