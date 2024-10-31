@@ -11,7 +11,7 @@ Bot Discord permettant de générer des graphiques de prix pour différentes cry
   - /graph_sol : Génère un graphique des prix de Solana (1 an, daily).
 
 - **API Binance** : Récupération des données de prix depuis Binance pour l'affichage de graphiques.
-- **Prix Actuel** : Affiche le prix actuel de la crypto-monnaie en plus du graphique.
+- **Prix Actuel** : Affiche le prix actuel de la crypto-monnaie en plus du graphique pour chaque commande.
 
 ## Déploiement sur Render
 
@@ -129,7 +129,7 @@ Le bot devrait maintenant être en ligne et répondre aux commandes sur le serve
 ## Étape 4 : Tester les Commandes du Bot
 
 Une fois le bot démarré en local, testez ses commandes directement dans un salon de votre serveur Discord.
-Exemple : **Commande `/graph_btc`** : Génère un graphique des prix de Bitcoin sur une période d’un an et affiche son prix actuel.
+Exemple : **Commande `/graph_btc`** : Génère un graphique des prix de Bitcoin sur une période d’un an et affiche sa valeur actuelle.
 
 ## Fin de l'Installation
 
