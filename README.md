@@ -27,31 +27,6 @@ Tout le monde peut ajouter ce bot à son serveur Discord en utilisant le lien su
 
 [Ajouter le bot à mon serveur Discord](https://discord.com/oauth2/authorize?client_id=1301243281883009145&permissions=2147584000&integration_type=0&scope=bot)
 
-## Installation (Optionnel)
-
-Si vous souhaitez déployer le bot localement, voici les étapes :
-
-1. **Clonez le dépôt** :
-   ```console
-   git clone <url-du-repository>
-   cd <nom-du-repository>
-   ```
-2. **Installez les dépendances** :
-   ```console
-   npm install
-   ```
-3. **Configuration de l'environnement** :
-
-   Créez un fichier `.env` à la racine du projet et ajoutez les informations de configuration suivantes :
-     ```console
-   BOT_TOKEN=your-discord-bot-token
-     ```
-
-4. **Lancez le bot** :
-   ```console
-   node index.js
-   ```
-
 ## Utilisation
 
 Une fois le bot en ligne, vous pouvez interagir avec lui en utilisant les commandes suivantes :
@@ -83,3 +58,81 @@ Vous pouvez héberger ce bot sur des services comme Heroku, Render, ou toute mac
 ## Contributions
 
 Les contributions sont les bienvenues ! Pour proposer une amélioration ou signaler un problème, ouvrez une issue ou un pull request.
+
+# Déployer le Crypto Chart Bot en Local
+
+Ce guide explique comment configurer et déployer votre bot localement avec Node.js et le [Discord Developer Portal](https://discord.com/developers/applications).
+
+---
+
+## 1. Configuration du Bot dans le Discord Developer Portal
+
+### Étape 1 : Créer une Application Discord
+
+1. Allez sur [Discord Developer Portal](https://discord.com/developers/applications).
+2. Cliquez sur **New Application**.
+3. Entrez un nom (ex. : "Crypto Chart Bot") et cliquez sur **Create**.
+
+### Étape 2 : Ajouter le Bot à l'Application
+
+1. Dans le menu de gauche, cliquez sur **Bot**.
+2. Sélectionnez **Add Bot** puis confirmez en cliquant sur **Yes, do it!**.
+3. Vous verrez la section avec le token de votre bot :
+   - Cliquez sur **Reset Token** si nécessaire et sur **Copy** pour copier le token.
+   - **Gardez ce token secret** ; il sera utilisé dans votre fichier `.env`.
+
+### Étape 3 : Configurer les Permissions du Bot
+
+1. Allez dans **OAuth2** > **URL Generator**.
+2. Dans **OAuth2 Scopes**, cochez **bot**.
+3. Sous **Bot Permissions**, cochez les permissions requises :
+   - **Send Messages** : permet au bot d'envoyer des messages.
+   - **Read Message History** : pour lire l’historique des messages.
+   - **Attach Files** : pour envoyer des fichiers (comme les graphiques).
+4. Copiez l'URL générée pour ajouter le bot à votre serveur.
+
+### Étape 4 : Ajouter le Bot à Votre Serveur Discord
+
+1. Ouvrez l'URL générée dans une nouvelle fenêtre.
+2. Sélectionnez le serveur où vous voulez ajouter le bot.
+3. Cliquez sur **Authorize** et complétez la vérification si demandé.
+
+### Étape 5 : Créer le Fichier `.env`
+
+1. Dans votre projet local, créez un fichier `.env`.
+2. Ajoutez-y le contenu suivant :
+
+    ```env
+    BOT_TOKEN=your-discord-bot-token
+    ```
+
+   Remplacez `your-discord-bot-token` par le token que vous avez copié.
+
+---
+
+## 2. Installation et Déploiement du Bot en Local
+
+### Étape 1 : Cloner le Dépôt et Installer les Dépendances
+
+```bash
+git clone <url-du-repository>
+cd <nom-du-repository>
+npm install
+```
+
+### Étape 2 : Lancer le Bot
+   ```bash
+   node index.js
+   ```
+Le bot devrait maintenant être en ligne et répondre aux commandes sur le serveur.
+
+## Étape 3 : Tester les Commandes du Bot
+
+Une fois le bot démarré en local, testez ses commandes directement dans un salon de votre serveur Discord.
+Exemple : **Commande `/graph_btc`** : Génère un graphique des prix de Bitcoin sur une période d’un an.
+
+## Fin de l'Installation
+
+Félicitations, votre bot est maintenant prêt à l'emploi ! 🎉 Vous pouvez tester et personnaliser le bot pour répondre aux besoins de votre serveur Discord. N'hésitez pas à explorer les fonctionnalités de l'API Binance pour ajouter d'autres commandes ou fonctionnalités de trading. Pour toute suggestion ou amélioration, ouvrez une *issue* ou proposez une *pull request* sur le dépôt GitHub.
+
+Merci d'avoir installé ce bot ! 😊
