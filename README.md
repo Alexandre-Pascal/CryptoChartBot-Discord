@@ -13,7 +13,23 @@ Bot Discord permettant de générer des graphiques de prix pour différentes cry
 - **API Binance** : Récupération des données de prix depuis Binance pour l'affichage de graphiques.
 - **Prix Actuel** : Affiche le prix actuel de la crypto-monnaie en plus du graphique.
 
-## Installation
+## Déploiement sur Render
+
+J'ai déployé ce bot sur [Render](https://render.com), un service d'hébergement cloud. Voici comment j'ai procédé :
+
+1. **Création d'un nouveau service** : J'ai créé un nouveau service web sur Render et sélectionné mon dépôt GitHub contenant le code du bot.
+2. **Configuration des variables d'environnement** : J'ai ajouté les variables d'environnement nécessaires (comme `BOT_TOKEN`) directement dans le tableau de bord de Render.
+3. **Lancement du service** : Une fois configuré, j'ai démarré le service, et le bot est désormais opérationnel.
+
+## Ajouter le bot à votre serveur Discord
+
+Tout le monde peut ajouter ce bot à son serveur Discord en utilisant le lien suivant :
+
+[Ajouter le bot à mon serveur Discord](https://discord.com/oauth2/authorize?client_id=1301243281883009145&permissions=2147584000&integration_type=0&scope=bot)
+
+## Installation (Optionnel)
+
+Si vous souhaitez déployer le bot localement, voici les étapes :
 
 1. **Clonez le dépôt** :
    ```console
@@ -29,7 +45,6 @@ Bot Discord permettant de générer des graphiques de prix pour différentes cry
    Créez un fichier `.env` à la racine du projet et ajoutez les informations de configuration suivantes :
      ```console
    BOT_TOKEN=your-discord-bot-token
-   SERVER_ID=your-server-id
      ```
 
 4. **Lancez le bot** :
@@ -63,7 +78,7 @@ Une fois le bot en ligne, vous pouvez interagir avec lui en utilisant les comman
 
 ## Hébergement
 
-Vous pouvez héberger ce bot sur des services comme Heroku, DigitalOcean, ou toute machine locale avec Node.js.
+Vous pouvez héberger ce bot sur des services comme Heroku, Render, ou toute machine locale avec Node.js.
 
 ## Contributions
 
