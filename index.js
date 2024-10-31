@@ -195,9 +195,6 @@ async function handleGraphCommand(symbol, interval, limit, interaction) {
         // Optionnel : Supprimer le fichier après l'envoi
         fs.unlinkSync(chartPath);
 
-        //Affiche la commande et la personne qui l'a exécutée
-        console.log(`Commande reçue: ${interaction.commandName} par ${interaction.user.tag}`);
-
     } catch (error) {
         console.error('Erreur lors de la récupération des données :', error);
         await interaction.editReply('Désolé, je n\'ai pas pu récupérer les données. Vérifiez que la crypto existe et que l\'intervalle est correct.');
@@ -209,6 +206,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isCommand()) return;
 
     const { commandName, options } = interaction;
+
+    //Affiche la commande et la personne qui l'a exécutée
+    console.log(`Commande reçue: ${interaction.commandName} par ${interaction.user.tag}`);
 
     if (commandName === 'graph') {
         const symbol = options.getString('crypto');
