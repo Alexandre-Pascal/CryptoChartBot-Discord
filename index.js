@@ -38,7 +38,7 @@ const client = new Client({
 async function registerSlashCommands() {
     const commands = [
         {
-            name: 'graph',
+            name: 'chart',
             description: 'Générer un graphique des prix d\'une crypto-monnaie.',
             options: [
                 {
@@ -62,15 +62,15 @@ async function registerSlashCommands() {
             ],
         },
         {
-            name: 'graph_btc',
+            name: 'chart_btc',
             description: 'Générer un graphique des prix de Bitcoin sur 1 an (daily).',
         },
         {
-            name: 'graph_eth',
+            name: 'chart_eth',
             description: 'Générer un graphique des prix d\'Ethereum sur 1 an (daily).',
         },
         {
-            name: 'graph_sol',
+            name: 'chart_sol',
             description: 'Générer un graphique des prix de Solana sur 1 an (daily).',
         },
     ];
@@ -224,11 +224,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
         console.log(`Crypto: ${symbol}, Intervalle: ${interval}, Limite: ${limit}`);
 
         await handleGraphCommand(symbol, interval, limit, interaction);
-    } else if (commandName === 'graph_btc') {
+    } else if (commandName === 'chart_btc') {
         await handleGraphCommand('BTCUSDT', '1d', 365, interaction); // 1 an
-    } else if (commandName === 'graph_eth') {
+    } else if (commandName === 'chart_eth') {
         await handleGraphCommand('ETHUSDT', '1d', 365, interaction); // 1 an
-    } else if (commandName === 'graph_sol') {
+    } else if (commandName === 'chart_sol') {
         await handleGraphCommand('SOLUSDT', '1d', 365, interaction); // 1 an
     }
 });
