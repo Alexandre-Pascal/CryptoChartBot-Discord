@@ -4,15 +4,19 @@ const axios = require('axios');
 const { Client, GatewayIntentBits, Partials, Events, AttachmentBuilder, REST, Routes } = require('discord.js');
 const { createCanvas } = require('canvas');
 const express = require('express'); // ou le framework que vous utilisez
+const { Console } = require('console');
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 
 const app = express();
 const port = process.env.PORT || 3000; // Utilise la variable d'environnement PORT ou le port 3000 par défaut
 
-app.listen(port, () => {
-    console.log(`Serveur en écoute sur le port ${port}`);
-});
+// Dans votre fichier index.js, vous pouvez vérifier si vous êtes en mode test
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(port, () => {
+        console.log(`Serveur en écoute sur le port ${port}`);
+    });
+}
 
 // Ajoutez une route pour le ping
 app.get('/', (req, res) => {
@@ -76,11 +80,11 @@ async function registerSlashCommands() {
     ];
 
     const rest = new REST({ version: '10' }).setToken(BOT_TOKEN); // Version 10 est recommandée
-
     try {
-        console.log('Début d\'enregistrement des commandes slash...');
         await rest.put(Routes.applicationCommands(client.user.id), { body: commands });
-        console.log('Commandes slash enregistrées avec succès !');
+        if (process.env.NODE_ENV !== 'test') {
+            console.log('Commandes slash enregistrées avec succès !');
+        }
     } catch (error) {
         console.error('Erreur lors de l\'enregistrement des commandes:', error);
     }
@@ -88,6 +92,7 @@ async function registerSlashCommands() {
 
 // Appel de la fonction d'enregistrement des commandes lors de la connexion
 client.once(Events.ClientReady, async () => {
+
     console.log(`Connecté en tant que ${client.user.tag}`);
     await registerSlashCommands(); // Enregistre les commandes lorsque le bot est prêt
 });
@@ -237,13 +242,22 @@ client.on(Events.InteractionCreate, async (interaction) => {
 client.login(BOT_TOKEN);
 
 // Ping le serveur toutes les 5 minutes pour éviter la mise en veille
-const url = 'https://bot-discord-graph-crypto.onrender.com';
-const pingServer = async () => {
-    try {
-        await axios.get(url);
-        console.log('Ping réussi à ' + url);
-    } catch (error) {
-        console.error('Erreur lors du ping:', error.message);
-    }
+
+if (process.env.NODE_ENV !== 'test') {
+    const url = 'https://bot-discord-graph-crypto.onrender.com';
+    const pingServer = async () => {
+        try {
+            await axios.get(url);
+            console.log('Ping réussi à ' + url);
+        } catch (error) {
+            console.error('Erreur lors du ping:', error.message);
+        }
+    };
+    setInterval(pingServer, 10 * 60 * 1000);
+}
+
+module.exports = {
+    generateChart,
+    registerSlashCommands,
+    handleGraphCommand,
 };
-setInterval(pingServer, 10 * 60 * 1000);
