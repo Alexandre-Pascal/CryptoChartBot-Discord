@@ -5,10 +5,10 @@ Bot Discord permettant de générer des graphiques de prix pour différentes cry
 ## Fonctionnalités
 
 - **Commandes Slash** :
-  - /graph : Génère un graphique de la crypto-monnaie spécifiée avec des paramètres personnalisables (symbole, intervalle de temps, limite).
-  - /graph_btc : Génère un graphique des prix de Bitcoin (1 an, daily).
-  - /graph_eth : Génère un graphique des prix d'Ethereum (1 an, daily).
-  - /graph_sol : Génère un graphique des prix de Solana (1 an, daily).
+  - /chart : Génère un graphique de la crypto-monnaie spécifiée avec des paramètres personnalisables (symbole, intervalle de temps, limite).
+  - /chart_btc : Génère un graphique des prix de Bitcoin (1 an, daily).
+  - /chart_eth : Génère un graphique des prix d'Ethereum (1 an, daily).
+  - /chart_sol : Génère un graphique des prix de Solana (1 an, daily).
 
 - **API Binance** : Récupération des données de prix depuis Binance pour l'affichage de graphiques.
 - **Prix Actuel** : Affiche le prix actuel de la crypto-monnaie en plus du graphique pour chaque commande.
@@ -31,19 +31,19 @@ Tout le monde peut ajouter ce bot à son serveur Discord en utilisant le lien su
 
 Une fois le bot en ligne (ajouté à votre serveur), vous pouvez interagir avec lui en utilisant les commandes suivantes dans un salon de votre serveur discord :
 
-- /graph : Générez un graphique pour une crypto-monnaie avec des paramètres personnalisés.
+- /chart : Générez un graphique pour une crypto-monnaie avec des paramètres personnalisés.
   - **Options** :
     - `crypto` : Le symbole de la crypto-monnaie (ex : BTCUSDT).
     - `interval` : Intervalle de temps (ex : 1h, 1d).
     - `limit` : Nombre de données à récupérer.
-- /graph_btc : Génère un graphique des prix de Bitcoin pour 1 an.
-- /graph_eth : Génère un graphique des prix d'Ethereum pour 1 an.
-- /graph_sol : Génère un graphique des prix de Solana pour 1 an.
+- /chart_btc : Génère un graphique des prix de Bitcoin pour 1 an.
+- /chart_eth : Génère un graphique des prix d'Ethereum pour 1 an.
+- /chart_sol : Génère un graphique des prix de Solana pour 1 an.
 
 ### Exemples de commandes :
 
-- /graph crypto:BTCUSDT interval:1d limit:365
-- /graph_btc
+- /chart crypto:BTCUSDT interval:1d limit:365
+- /chart_btc
 
 ## Dépendances
 
@@ -129,7 +129,7 @@ Le bot devrait maintenant être en ligne et répondre aux commandes sur le serve
 ## Étape 4 : Tester les Commandes du Bot
 
 Une fois le bot démarré en local, testez ses commandes directement dans un salon de votre serveur Discord.
-Exemple : **Commande `/graph_btc`** : Génère un graphique des prix de Bitcoin sur une période d’un an et affiche sa valeur actuelle.
+Exemple : **Commande `/chart_btc`** : Génère un graphique des prix de Bitcoin sur une période d’un an et affiche sa valeur actuelle.
 
 ## Fin de l'Installation
 
