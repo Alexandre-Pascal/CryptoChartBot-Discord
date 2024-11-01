@@ -215,7 +215,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     // Affiche la commande ainsi que l'utilisateur qui a exécuté la commande
     console.log(`Commande reçue: ${interaction.commandName} par ${interaction.user.tag}`);
 
-    if (commandName === 'graph') {
+    if (commandName === 'chart') {
         const symbol = options.getString('crypto');
         const interval = options.getString('interval');
         const limit = options.getInteger('limit');
