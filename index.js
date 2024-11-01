@@ -189,13 +189,13 @@ async function handleGraphCommand(symbol, interval, limit, interaction) {
         // Générer le graphique
         const chartPath = await generateChart(prices);
 
+
         // Envoyer le fichier dans Discord
         const attachment = new AttachmentBuilder(chartPath);
-        await interaction.editReply({ content: 'Voici le graphique des prix :', files: [attachment] });
 
         // Donne le prix actuel de la crypto
         const currentPrice = prices[prices.length - 1].close;
-        await interaction.followUp(`Le prix actuel de ${symbol} est de ${currentPrice} USD.`);
+        await interaction.editReply({ content: `Le prix actuel de ${symbol} est de ${currentPrice} USD.`, files: [attachment] });
 
         // Optionnel : Supprimer le fichier après l'envoi
         fs.unlinkSync(chartPath);
