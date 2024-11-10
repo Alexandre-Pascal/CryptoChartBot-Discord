@@ -45,6 +45,8 @@ Une fois le bot en ligne (ajouté à votre serveur), vous pouvez interagir avec 
 - /chart crypto:BTCUSDT interval:1d limit:365
 - /chart_btc
 
+### [Voir fichier guide pour plus d'explications](GUIDE.md)
+
 ## Dépendances
 
 - [discord.js](https://discord.js.org/) - Pour la gestion des interactions Discord
