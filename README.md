@@ -57,6 +57,12 @@ L’appli fait **deux choses** : un **serveur HTTP** (Express) et la **connexion
 
 En résumé : « Le serveur fonctionne ! » = le HTTP marche ; pour que le bot soit en ligne, il faut que la **connexion Discord** réussisse, donc un **`BOT_TOKEN` valide** et des logs sans erreur.
 
+**À faire sur Render :**
+1. Ouvrir le **dashboard Render** → votre service → onglet **Logs** (pas seulement le message de déploiement).
+2. Vérifier la présence de : `Connexion à Discord en cours...` puis `Connecté en tant que ... — bot Discord en ligne.`
+3. Si vous voyez une **erreur** après « Connexion à Discord en cours... » : token invalide ou révoqué. Régénérez le token dans [Discord Developer Portal](https://discord.com/developers/applications) → Bot → Reset Token, puis mettez à jour la variable `BOT_TOKEN` sur Render (Environment → Save Changes → redéployez).
+4. Si vous ne voyez **jamais** « Connecté en tant que » : la connexion peut rester bloquée (réseau). Vérifiez que `BOT_TOKEN` n’a pas d’espace ni de saut de ligne en trop dans Render.
+
 ## Ajouter le bot à votre serveur Discord
 
 Tout le monde peut ajouter ce bot à son serveur Discord en utilisant le lien suivant :
@@ -87,7 +93,7 @@ Une fois le bot en ligne (ajouté à votre serveur), vous pouvez interagir avec 
 
 - [discord.js](https://discord.js.org/) - Pour la gestion des interactions Discord
 - [axios](https://www.npmjs.com/package/axios) - Pour les requêtes HTTP vers l'API Binance
-- [canvas](https://www.npmjs.com/package/canvas) - Pour la création des graphiques
+- [@napi-rs/canvas](https://www.npmjs.com/package/@napi-rs/canvas) - Pour la création des graphiques (sans dépendances système)
 
 ## Hébergement
 

@@ -14,7 +14,8 @@ const { createCanvas } = require("@napi-rs/canvas");
 const express = require("express"); // ou le framework que vous utilisez
 const { Console } = require("console");
 
-const BOT_TOKEN = process.env.BOT_TOKEN;
+// Trim pour éviter espaces/newlines copiés depuis le dashboard Render
+const BOT_TOKEN = (process.env.BOT_TOKEN || "").trim();
 
 // Vérification du token (évite un bot "hors ligne" sans message clair)
 if (process.env.NODE_ENV !== "test" && !BOT_TOKEN) {
@@ -110,7 +111,7 @@ async function registerSlashCommands() {
 
 // Appel de la fonction d'enregistrement des commandes lors de la connexion
 client.once(Events.ClientReady, async () => {
-  console.log(`Connecté en tant que ${client.user.tag}`);
+  console.log(`Connecté en tant que ${client.user.tag} — bot Discord en ligne.`);
   await registerSlashCommands(); // Enregistre les commandes lorsque le bot est prêt
 });
 
@@ -267,12 +268,20 @@ client.on("error", (err) => {
   console.error("Erreur client Discord:", err);
 });
 
+client.on("warn", (msg) => {
+  console.warn("Discord warn:", msg);
+});
+
 // Connectez le bot avec votre token
 if (BOT_TOKEN) {
+  console.log("Connexion à Discord en cours...");
   client.login(BOT_TOKEN).catch((err) => {
     console.error("Échec de connexion au serveur Discord:", err.message);
+    console.error("Détail:", err);
     process.exit(1);
   });
+} else {
+  console.error("BOT_TOKEN vide après trim. Vérifiez la variable d'environnement sur Render.");
 }
 
 // Ping le serveur toutes les 5 minutes pour éviter la mise en veille
