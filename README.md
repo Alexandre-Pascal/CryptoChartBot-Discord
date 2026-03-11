@@ -13,6 +13,31 @@ Bot Discord permettant de générer des graphiques de prix pour différentes cry
 - **API Binance** : Récupération des données de prix depuis Binance pour l'affichage de graphiques.
 - **Prix Actuel** : Affiche le prix actuel de la crypto-monnaie en plus du graphique pour chaque commande.
 
+## Démarrer en local
+
+1. **Cloner et installer les dépendances**
+   ```bash
+   git clone https://github.com/Alexandre-Pascal/bot-discord-graph-crypto.git
+   cd bot-discord-graph-crypto
+   npm install
+   ```
+
+2. **Créer un fichier `.env`** à la racine du projet :
+   ```env
+   BOT_TOKEN=votre_token_discord
+   ```
+   (Récupérez le token dans [Discord Developer Portal](https://discord.com/developers/applications) → votre application → Bot → Reset Token / Copy.)
+
+3. **Lancer le bot**
+   ```bash
+   npm start
+   ```
+   ou `node index.js`. Vous devriez voir « Connecté en tant que … » et « Serveur en écoute sur le port 3000 ».
+
+4. **Tester** : dans un salon Discord où le bot est invité, tapez par exemple `/chart_btc`.
+
+---
+
 ## Déploiement sur Render
 
 J'ai déployé ce bot sur [Render](https://render.com), un service d'hébergement cloud. Voici comment j'ai procédé :
@@ -20,6 +45,17 @@ J'ai déployé ce bot sur [Render](https://render.com), un service d'hébergemen
 1. **Création d'un nouveau service** : J'ai créé un nouveau service web sur Render et sélectionné mon dépôt GitHub contenant le code du bot.
 2. **Configuration des variables d'environnement** : J'ai ajouté les variables d'environnement nécessaires (comme `BOT_TOKEN`) directement dans le tableau de bord de Render.
 3. **Lancement du service** : Une fois configuré, j'ai démarré le service, et le bot est désormais opérationnel.
+
+### Pourquoi Render affiche « Le serveur fonctionne ! » mais le bot est hors ligne ?
+
+L’appli fait **deux choses** : un **serveur HTTP** (Express) et la **connexion au bot Discord**.
+
+- La page « Le serveur fonctionne ! » vient du **serveur HTTP**. Render vérifie que ce serveur répond → donc Render affiche que le service fonctionne.
+- Le **bot Discord** se connecte à Discord avec `BOT_TOKEN`. Si le bot apparaît hors ligne ou que les commandes ne marchent pas, c’est en général que :
+  - **`BOT_TOKEN` n’est pas défini ou est incorrect** sur Render (Environment). Vérifiez dans le dashboard Render que la variable `BOT_TOKEN` est bien renseignée et sans espace.
+  - Une **erreur Discord** (token révoqué, mauvaise config). Consultez les **logs** du service sur Render (onglet Logs) : le code affiche maintenant des messages clairs en cas de token manquant ou d’échec de connexion.
+
+En résumé : « Le serveur fonctionne ! » = le HTTP marche ; pour que le bot soit en ligne, il faut que la **connexion Discord** réussisse, donc un **`BOT_TOKEN` valide** et des logs sans erreur.
 
 ## Ajouter le bot à votre serveur Discord
 
