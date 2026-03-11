@@ -272,6 +272,22 @@ client.on("warn", (msg) => {
   console.warn("Discord warn:", msg);
 });
 
+// Mode debug (variable DEBUG_DISCORD=1 sur Render pour voir les messages gateway / rate limit)
+if (process.env.DEBUG_DISCORD === "1") {
+  client.on("debug", (msg) => console.log("[Discord debug]", msg));
+}
+
+// Si la connexion reste en attente > 25s : Render free tier est souvent rate-limité par Discord (IP partagée)
+if (process.env.NODE_ENV !== "test" && BOT_TOKEN) {
+  setTimeout(() => {
+    if (!client.isReady()) {
+      console.warn(
+        "Connexion Discord toujours en attente après 25s. Sur Render (gratuit), Discord rate-limit souvent les bots (IP partagée). Solutions : héberger ailleurs (Railway, Fly.io) ou passer en Worker payant sur Render.",
+      );
+    }
+  }, 25000);
+}
+
 // Connectez le bot avec votre token
 if (BOT_TOKEN) {
   console.log("Connexion à Discord en cours...");

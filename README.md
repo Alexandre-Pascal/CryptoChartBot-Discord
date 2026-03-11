@@ -63,6 +63,12 @@ En résumé : « Le serveur fonctionne ! » = le HTTP marche ; pour que le bot s
 3. Si vous voyez une **erreur** après « Connexion à Discord en cours... » : token invalide ou révoqué. Régénérez le token dans [Discord Developer Portal](https://discord.com/developers/applications) → Bot → Reset Token, puis mettez à jour la variable `BOT_TOKEN` sur Render (Environment → Save Changes → redéployez).
 4. Si vous ne voyez **jamais** « Connecté en tant que » : la connexion peut rester bloquée (réseau). Vérifiez que `BOT_TOKEN` n’a pas d’espace ni de saut de ligne en trop dans Render.
 
+### « Connexion à Discord en cours... » puis plus rien (aucune erreur)
+
+Sur **Render (offre gratuite)**, les bots Discord sont souvent **rate-limités par Discord** (IP partagée). La connexion reste en attente et ne termine jamais. C'est une limitation connue.
+
+**À faire :** après ~25s, un message dans les logs vous le rappelle. **Solution recommandée :** héberger le bot ailleurs — [Railway](https://railway.app) ou [Fly.io](https://fly.io) (offres gratuites), ou Background Worker payant sur Render. Pour diagnostiquer : ajoutez la variable **`DEBUG_DISCORD=1`** sur Render, redéployez, et consultez les logs (messages `[Discord debug]`).
+
 ## Ajouter le bot à votre serveur Discord
 
 Tout le monde peut ajouter ce bot à son serveur Discord en utilisant le lien suivant :
