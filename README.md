@@ -38,36 +38,17 @@ Bot Discord permettant de générer des graphiques de prix pour différentes cry
 
 ---
 
-## Déploiement sur Render
+## Hébergement (gratuit) : Koyeb
 
-J'ai déployé ce bot sur [Render](https://render.com), un service d'hébergement cloud. Voici comment j'ai procédé :
+Le bot est hébergé sur **[Koyeb](https://www.koyeb.com)** : gratuit, synchro GitHub et déploiement automatique à chaque push. Pas de rate-limit Discord comme sur Render.
 
-1. **Création d'un nouveau service** : J'ai créé un nouveau service web sur Render et sélectionné mon dépôt GitHub contenant le code du bot.
-2. **Configuration des variables d'environnement** : J'ai ajouté les variables d'environnement nécessaires (comme `BOT_TOKEN`) directement dans le tableau de bord de Render.
-3. **Lancement du service** : Une fois configuré, j'ai démarré le service, et le bot est désormais opérationnel.
+👉 **[Guide détaillé : Déployer sur Koyeb](DEPLOIEMENT-GRATUIT.md)** — compte gratuit, connexion au repo GitHub, variable `BOT_TOKEN`, puis Deploy. Optionnel : `APP_URL` pour limiter la mise en veille.
+---
 
-### Pourquoi Render affiche « Le serveur fonctionne ! » mais le bot est hors ligne ?
+### Autres options
 
-L’appli fait **deux choses** : un **serveur HTTP** (Express) et la **connexion au bot Discord**.
-
-- La page « Le serveur fonctionne ! » vient du **serveur HTTP**. Render vérifie que ce serveur répond → donc Render affiche que le service fonctionne.
-- Le **bot Discord** se connecte à Discord avec `BOT_TOKEN`. Si le bot apparaît hors ligne ou que les commandes ne marchent pas, c’est en général que :
-  - **`BOT_TOKEN` n’est pas défini ou est incorrect** sur Render (Environment). Vérifiez dans le dashboard Render que la variable `BOT_TOKEN` est bien renseignée et sans espace.
-  - Une **erreur Discord** (token révoqué, mauvaise config). Consultez les **logs** du service sur Render (onglet Logs) : le code affiche maintenant des messages clairs en cas de token manquant ou d’échec de connexion.
-
-En résumé : « Le serveur fonctionne ! » = le HTTP marche ; pour que le bot soit en ligne, il faut que la **connexion Discord** réussisse, donc un **`BOT_TOKEN` valide** et des logs sans erreur.
-
-**À faire sur Render :**
-1. Ouvrir le **dashboard Render** → votre service → onglet **Logs** (pas seulement le message de déploiement).
-2. Vérifier la présence de : `Connexion à Discord en cours...` puis `Connecté en tant que ... — bot Discord en ligne.`
-3. Si vous voyez une **erreur** après « Connexion à Discord en cours... » : token invalide ou révoqué. Régénérez le token dans [Discord Developer Portal](https://discord.com/developers/applications) → Bot → Reset Token, puis mettez à jour la variable `BOT_TOKEN` sur Render (Environment → Save Changes → redéployez).
-4. Si vous ne voyez **jamais** « Connecté en tant que » : la connexion peut rester bloquée (réseau). Vérifiez que `BOT_TOKEN` n’a pas d’espace ni de saut de ligne en trop dans Render.
-
-### « Connexion à Discord en cours... » puis plus rien (aucune erreur)
-
-Sur **Render (offre gratuite)**, les bots Discord sont souvent **rate-limités par Discord** (IP partagée). La connexion reste en attente et ne termine jamais. C'est une limitation connue.
-
-**À faire :** après ~25s, un message dans les logs vous le rappelle. **Solution recommandée :** héberger le bot ailleurs — [Railway](https://railway.app) ou [Fly.io](https://fly.io) (offres gratuites), ou Background Worker payant sur Render. Pour diagnostiquer : ajoutez la variable **`DEBUG_DISCORD=1`** sur Render, redéployez, et consultez les logs (messages `[Discord debug]`).
+- **En local** : `npm install` puis `npm start` (voir « Démarrer en local » ci-dessus).
+- **Render** : possible, mais l'offre gratuite subit souvent un rate-limit Discord (bot « hors ligne »). Préférer Koyeb.
 
 ## Ajouter le bot à votre serveur Discord
 
@@ -103,7 +84,7 @@ Une fois le bot en ligne (ajouté à votre serveur), vous pouvez interagir avec 
 
 ## Hébergement
 
-Vous pouvez héberger ce bot sur des services comme Heroku, Render, ou toute machine locale avec Node.js.
+Recommandé : **Koyeb** (gratuit, GitHub → auto-deploy), voir [DEPLOIEMENT-GRATUIT.md](DEPLOIEMENT-GRATUIT.md). Sinon : machine locale avec Node.js, ou Render / Railway (attention au rate-limit Discord sur Render gratuit).
 
 ## Contributions
 

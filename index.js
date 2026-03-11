@@ -300,10 +300,11 @@ if (BOT_TOKEN) {
   console.error("BOT_TOKEN vide après trim. Vérifiez la variable d'environnement sur Render.");
 }
 
-// Ping le serveur toutes les 5 minutes pour éviter la mise en veille
+// Ping le serveur périodiquement pour éviter la mise en veille (Render, Koyeb, etc.)
+// Définir APP_URL (ex. https://ton-app.koyeb.app) pour que le bot se ping lui-même
 
-if (process.env.NODE_ENV !== "test") {
-  const url = "https://bot-discord-graph-crypto.onrender.com";
+if (process.env.NODE_ENV !== "test" && process.env.APP_URL) {
+  const url = process.env.APP_URL.replace(/\/$/, "");
   const pingServer = async () => {
     try {
       await axios.get(url);
